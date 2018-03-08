@@ -50,31 +50,33 @@ var lists = [
     { videoId: 654356453, time: 984934 }
   ];
 
-var t = lists.map((list) => {
+var t = lists.map(list => {
   return {
     name: list.name,
-    videos: videos.filter((video) => {
-        return video.listId === list.id
-      }).concatMap((video) => {
-        return boxarts.filter((artwork) => {
-          return video.id === artwork.videoId
-        }).reduce((acc, curr) => {
-          return acc.width * acc.height < curr.width * curr.height ? acc : curr
-        }).concatMap((art) => {
-          return bookmarks.filter((bookmark) => {
-            return bookmark.videoId === video.id
-          }).map((bookmark) => {
-            return {
-              id: video.id,
-              title: video.title,
-              time: bookmark.time,
-              boxart: art.url
-            }
-          })
+    videos:
+      videos
+        .filter(video => video.listId === list.id)
+        .concatMap(video => {
+          return boxarts
+            .filter(artwork => video.id === artwork.videoId)
+            .reduce((acc, curr) => acc.width * acc.height < curr.width * curr.height ? acc : curr)
+            .concatMap(art => {
+              return bookmarks
+                .filter(bookmark => bookmark.videoId === video.id)
+                .map(bookmark => {
+                  return {
+                    id: video.id,
+                    title: video.title,
+                    time: bookmark.time,
+                    boxart: art.url
+                  }
+                })
+            })
         })
-      })
     }
-})
+  })
+
+t
 
 console.log(t);
 

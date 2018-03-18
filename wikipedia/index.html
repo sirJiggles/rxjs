@@ -12,14 +12,30 @@
       display:block;
       margin-top: 20px;
     }
+    #searchForm {
+      display: none;
+    }
   </style>
 </head>
 <body>
+
+<!--   Start examples
   <input id="search" class="input" />
 
-  <textarea id="results" class="input">
+  <textarea id="results" class="input"></textarea> -->
+
+<!--   <button class="btn" id="searchButton">Search</button> -->
+
+  <div id="searchForm">
+    <button id="closeButton" class="btn">X</button>
+    <input id="search" class="input" />
+
+    <textarea id="results" class="input">
+
+    </textarea>
+  </div>
   
-  </textarea>
+  <button class="btn" id="searchButton">Search</button>
   <script src="./index.js"></script>
 </body>
 </html>

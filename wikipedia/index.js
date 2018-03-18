@@ -116,7 +116,30 @@ var searchResults = keypresses
 
 
 // THEN call for each on WHAT WE WANT TO DO WITH IT!
-searchResults.forEach((resultSet) => {
+// searchResults.forEach((resultSet) => {
+//   console.log(JSON.stringify(resultSet))
+//   searchResultsInput.value = JSON.stringify(resultSet)
+// })
+
+
+// Lets improve with distinkt until changed, because of left right
+// arrow key issue
+var searchResultsClean = keypresses
+  // {..... a..b ...... c......e}
+  .throttleTime(20)
+  // {.........b...............e} 
+  .map((key) => {
+    return key.target.value;
+  })
+  .distinctUntilChanged()
+  // {........be.......}
+  .map((search) => {
+    return searchWikipediaOb(search)
+  })
+  .switch()
+
+
+searchResultsClean.forEach((resultSet) => {
   console.log(JSON.stringify(resultSet))
   searchResultsInput.value = JSON.stringify(resultSet)
 })
